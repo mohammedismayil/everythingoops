@@ -1,14 +1,16 @@
-import 'WashingMachine.dart';
+import '../WashingMachine.dart';
 
-class GodrejMinimalWashingMachine extends WashingMachine {
+class LGWashingMachine extends WashingMachine {
   @override
   rinse() {
+    // ignore: todo
     // TODO: implement rinse
     throw UnimplementedError();
   }
 
   @override
   soak() {
+    // ignore: todo
     // TODO: implement soak
     throw UnimplementedError();
   }
@@ -17,10 +19,5 @@ class GodrejMinimalWashingMachine extends WashingMachine {
   wash() {
     // TODO: implement wash
     throw UnimplementedError();
-  }
-
-  cleanEfficiently() {
-    
-    print("i am cleaning in different method ");
   }
 }

@@ -1,6 +1,7 @@
-import 'WashingMachine.dart';
+import 'LGWashingMachine.dart';
 
-class LGMinimalWashingMachine extends WashingMachine {
+class LGMinimalWashingMachine extends LGWashingMachine {
+  var price = 10;
   @override
   rinse() {
     // TODO: implement rinse
@@ -20,6 +21,6 @@ class LGMinimalWashingMachine extends WashingMachine {
   }
 
   runMotorAtSpeed() {
-    print("motor running at certain speed particularly for lg machines");
+    print("motor running at certain speed by using the price of $price");
   }
 }
