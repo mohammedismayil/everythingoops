@@ -1,35 +1,67 @@
 abstract class APIView {
-  var interactor = APIInteractor;
-  Function onSuccess();
-  Function onFailure();
+  APIInteractor interactor;
+  APIView({
+    required this.interactor,
+  });
+  onSuccess(String message);
+  onFailure();
 }
 
-class APIInteractor {
-  static getData() {
-    return "hello";
-  }
+abstract class APIInteractor {
+  APIView view;
+  APIInteractor({
+    required this.view,
+  });
+
+  getData(int api) {}
 }
 
-class mypage extends APIView {
-  @override
-  set interactor(Type _interactor) {
-    // TODO: implement interactor
-    super.interactor = _interactor;
-  }
+class UpdateView extends APIInteractor {
+  // UpdateView() : super();
+
+  
 
   @override
-  Function onFailure() {
+  onFailure() {
     // TODO: implement onFailure
     throw UnimplementedError();
   }
 
   @override
-  Function onSuccess() {
+  onSuccess(String message) {
     // TODO: implement onSuccess
     throw UnimplementedError();
   }
 
-  didload() {
-    interactor.getData();
+  @override
+  getData(int api) {
+    // TODO: implement getData
+    print("coming to getdata");
+    if (api == 0) {
+      view.onSuccess("Hi there");
+    } else {}
   }
+}
+
+class MyPage extends UpdateView {
+  @override
+  onFailure() {
+    // TODO: implement onFailure
+    throw UnimplementedError();
+  }
+
+  @override
+  onSuccess(String message) {
+    // TODO: implement onSuccess
+    print("We have done it");
+
+    return "We have done it";
+  }
+
+  didload() {
+    print("coming to didload");
+    // interactor.getData(0);
+  }
+
+ 
 }
