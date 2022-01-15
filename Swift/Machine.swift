@@ -10,3 +10,8 @@ class Bike: Vehicle{
 // }
 
 
+extension Vehicle{
+    func horn(){
+        print("honk honk")
+    }
+}
