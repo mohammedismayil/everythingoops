@@ -1,22 +1,43 @@
 let newVehicle =  Bike();
 
-newVehicle.didLoad()
+newVehicle.didLoad();
 
-
+let newCar = Car();
+newCar.willAppear()
 class Bike: APIProtocol{
 var interactor: APIInteractor?
-func onSuccess() {
+func onSuccess(data:String) {
 print("success from bike")
 }
-func onFailure() {
-print("damn these coding- from bike class")
+func onFailure(data:String) {
+print(data)
 }
-
 func didLoad(){
    
     self.interactor?.getData()   
 }
 
+init() {
+    //  self.interactor = APIInteractorClass(view:self)
+    self.interactor = APIInteractorClass.init(view: self)
+}
+}
+class Car: APIProtocol{
+var interactor: APIInteractor?
+func onSuccess(data:String) {
+print("success from bike")
+}
+func onFailure(data:String) {
+print(data)
+}
+func didLoad(){
+   
+    self.interactor?.getData()   
+}
+
+func willAppear(){
+    self.interactor?.getData()
+}
 
 init() {
     //  self.interactor = APIInteractorClass(view:self)
@@ -30,8 +51,8 @@ init() {
 
 protocol APIProtocol{
     var interactor: APIInteractor?{get set}
-    func onSuccess()
-    func onFailure()
+    func onSuccess(data:String)
+    func onFailure(data:String)
 }
 
 protocol APIInteractor{
@@ -41,13 +62,8 @@ protocol APIInteractor{
 }
 extension APIInteractor{
     func getData(){
-self.view?.onFailure()
+self.view?.onFailure(data:"we are not done yet")
     }
-
-
-//  init(view:APIProtocol){
-//     self.view = view
-// }
 }
 class APIInteractorClass: APIInteractor{
       var view:APIProtocol?
