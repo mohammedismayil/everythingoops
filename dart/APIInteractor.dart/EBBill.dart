@@ -17,7 +17,8 @@ class TNEBBillCalculator implements BillCalculator {
   var subsidyUnitsCount;
   var consumerType;
   TNEBMailHandler mailHandler =
-      TNEBMailHandler(consumerID: 10, mailSender: TNEBMailSender());
+      TNEBMailHandler(
+      consumerID: 10, mailSender: TNEBMailSender(consumerID: null));
   @override
   calculateTotalBill() {
     if (numberOfUnits < 100) {
@@ -28,31 +29,30 @@ class TNEBBillCalculator implements BillCalculator {
 
       mailHandler.consumerID = 10;
 
-      mailHandler.sendMail();
+      mailHandler.mailSender.consumerID = mailHandler.consumerID;
+      mailHandler.mailSender.sendMail();
     }
   }
 }
 
-class TNEBMailHandler implements TNEBMailSender {
+class TNEBMailHandler {
   var consumerID;
 
-  TNEBMailSender mailSender = TNEBMailSender();
+  TNEBMailSender mailSender = TNEBMailSender(consumerID: 0);
   TNEBMailHandler({
     required this.consumerID,
     required this.mailSender,
   });
-
-  @override
-  sendMail() {
-    print("sending mail to customer id $consumerID");
-  }
-  // sendMail() {
-  //   print("sending mail to customer id $consumerID");
-  // }
 }
 
 class TNEBMailSender {
-  sendMail() {}
+  var consumerID;
+  TNEBMailSender({
+    required this.consumerID,
+  });
+  sendMail() {
+    print("sending mail to customer id $consumerID");
+  }
 }
 
 main() {
