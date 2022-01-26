@@ -8,7 +8,7 @@ abstract class APIView {
 }
 
 abstract class APIInteractor {
-  APIView view;
+  late APIView view;
   APIInteractor({
     required this.view,
   });
@@ -16,11 +16,12 @@ abstract class APIInteractor {
   getData(int api) {}
 }
 
-class UpdateView extends APIInteractor {
-  // UpdateView() : super();
-
+extension APIInteractor {
+  late APIView view;
+  UpdateView(
+    this.view,
+  ) : super(view: view);
   
-
   @override
   onFailure() {
     // TODO: implement onFailure
@@ -43,7 +44,12 @@ class UpdateView extends APIInteractor {
   }
 }
 
-class MyPage extends UpdateView {
+class MyPage extends APIView {
+  late APIInteractor interactor;
+  MyPage(
+    this.interactor,
+  ) : super(interactor: interactor);
+
   @override
   onFailure() {
     // TODO: implement onFailure
@@ -60,8 +66,13 @@ class MyPage extends UpdateView {
 
   didload() {
     print("coming to didload");
-    // interactor.getData(0);
+    interactor.getData(0);
   }
-
- 
 }
+
+main() {
+  APIInteractor interactor;
+  MyPage mypage = new MyPage(interactor);
+  mypage.didload();
+}
+// bd1aSoe0crOtM2HUNcAzZepnZ36yEfjRP2uxKm2ZL7J5vX6
