@@ -80,6 +80,16 @@ class TNEBMailSender {
 
 main() {
   var ebbillcal = TNEBBillCalculator();
+  Map userDict = {};
+  userDict = {"name": "jack", "age": "23", "location": "india"};
+  Map rohan = {"name": "rohan", "age": "22", "location": "Chandigarh,India"};
+  print(userDict.keys);
+
+  List<Map> userList = [];
+
+  userList.add(userDict);
+
+  print(userList);
   ebbillcal.numberOfUnits = 120;
   ebbillcal.perUnitPrice = 2.5;
   ebbillcal.subsidyUnitsCount = 50;
