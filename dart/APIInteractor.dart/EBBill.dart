@@ -16,9 +16,11 @@ class TNEBBillCalculator implements BillCalculator {
   var numberOfUnits;
   var subsidyUnitsCount;
   var consumerType;
-  TNEBMailHandler mailHandler =
-      TNEBMailHandler(
+  TNEBMailHandler mailHandler = TNEBMailHandler(
       consumerID: 10, mailSender: TNEBMailSender(consumerID: null));
+
+  TNEBMailHandler mailHandlerWithComposer =
+      TNEBMailHandler.withComposer(composerId: 12, composerName: "mozilla");
   @override
   calculateTotalBill() {
     if (numberOfUnits < 100) {
@@ -27,10 +29,13 @@ class TNEBBillCalculator implements BillCalculator {
       print(
           "your total bill is ${(numberOfUnits - subsidyUnitsCount) * perUnitPrice}");
 
-      mailHandler.consumerID = 10;
+      mailHandlerWithComposer.mailComposer.composeMail();
 
-      mailHandler.mailSender.consumerID = mailHandler.consumerID;
-      mailHandler.mailSender.sendMail();
+      mailHandlerWithComposer.mailSender.sendMail();
+      // mailHandler.consumerID = 10;
+
+      // mailHandler.mailSender.consumerID = mailHandler.consumerID;
+      // mailHandler.mailSender.sendMail();
     }
   }
 }
@@ -38,11 +43,29 @@ class TNEBBillCalculator implements BillCalculator {
 class TNEBMailHandler {
   var consumerID;
 
+  var composerId;
+  var composerName;
+
   TNEBMailSender mailSender = TNEBMailSender(consumerID: 0);
+  TNEBMailComposer mailComposer = TNEBMailComposer(consumerID: 0);
   TNEBMailHandler({
     required this.consumerID,
     required this.mailSender,
   });
+  TNEBMailHandler.withComposer({
+    required this.composerId,
+    required this.composerName,
+  });
+}
+
+class TNEBMailComposer {
+  var consumerID;
+  TNEBMailComposer({
+    required this.consumerID,
+  });
+  composeMail() {
+    print("composing mail to customer id $consumerID");
+  }
 }
 
 class TNEBMailSender {
