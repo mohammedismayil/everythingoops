@@ -1,12 +1,3 @@
-abstract class APIView {
-  APIInteractor interactor;
-  APIView({
-    required this.interactor,
-  });
-  onSuccess(String message);
-  onFailure();
-}
-
 abstract class APIInteractor {
   late APIView view;
   APIInteractor({
@@ -16,12 +7,41 @@ abstract class APIInteractor {
   getData(int api) {}
 }
 
-extension APIInteractor {
+abstract class APIView {
+  late APIInteractor interactor;
+
+  onSuccess(String message);
+  onFailure();
+}
+
+class View extends APIView {
+  @override
+  // TODO: implement interactor
+  APIInteractor get interactor => super.interactor;
+  @override
+  onFailure() {
+    // TODO: implement onFailure
+    throw UnimplementedError();
+  }
+
+  View();
+  @override
+  onSuccess(String message) {
+    // TODO: implement onSuccess
+    throw UnimplementedError();
+  }
+}
+
+class Interactor implements APIInteractor {
   late APIView view;
-  UpdateView(
-    this.view,
-  ) : super(view: view);
-  
+
+  Interactor({
+    required this.view,
+  });
+  // UpdateView(
+  //   this.view,
+  // ) : super(view: view);
+
   @override
   onFailure() {
     // TODO: implement onFailure
@@ -44,12 +64,10 @@ extension APIInteractor {
   }
 }
 
-class MyPage extends APIView {
+class MyPage implements APIView {
   late APIInteractor interactor;
-  MyPage(
-    this.interactor,
-  ) : super(interactor: interactor);
-
+  MyPage.withIn({required this.interactor});
+  MyPage();
   @override
   onFailure() {
     // TODO: implement onFailure
@@ -59,7 +77,7 @@ class MyPage extends APIView {
   @override
   onSuccess(String message) {
     // TODO: implement onSuccess
-    print("We have done it");
+    print("Yasss We have done it");
 
     return "We have done it";
   }
@@ -71,8 +89,16 @@ class MyPage extends APIView {
 }
 
 main() {
-  APIInteractor interactor;
-  MyPage mypage = new MyPage(interactor);
-  mypage.didload();
+  // Interactor interactor = Interactor(view: APIView(interactor: in));
+
+  MyPage mypage = new MyPage();
+
+
+
+
+
+  MyPage myAnotherPage =
+      new MyPage.withIn(interactor: Interactor(view: mypage));
+  myAnotherPage.didload();
 }
 // bd1aSoe0crOtM2HUNcAzZepnZ36yEfjRP2uxKm2ZL7J5vX6
